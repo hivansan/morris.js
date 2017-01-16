@@ -1,17 +1,17 @@
 /* @license
-morris.js v0.5.1
-Copyright 2014 Olly Smith All rights reserved.
-Licensed under the BSD-2-Clause License.
-*/
+ morris.js v0.5.1
+ Copyright 2014 Olly Smith All rights reserved.
+ Licensed under the BSD-2-Clause License.
+ */
 
 
 (function() {
   var $, Morris, minutesSpecHelper, secondsSpecHelper,
-    __slice = [].slice,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+      __slice = [].slice,
+      __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+      __hasProp = {}.hasOwnProperty,
+      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+      __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Morris = window.Morris = {};
 
@@ -1003,7 +1003,7 @@ Licensed under the BSD-2-Clause License.
 
     Line.prototype.drawXAxis = function() {
       var drawLabel, l, labels, prevAngleMargin, prevLabelMargin, row, ypos, _i, _len, _results,
-        _this = this;
+          _this = this;
       ypos = this.bottom + this.options.padding / 2;
       prevLabelMargin = null;
       prevAngleMargin = null;
@@ -1180,11 +1180,11 @@ Licensed under the BSD-2-Clause License.
         coord = coords[i];
         if (coord.y != null) {
           nextCoord = coords[i + 1] || {
-            y: null
-          };
+                y: null
+              };
           prevCoord = coords[i - 1] || {
-            y: null
-          };
+                y: null
+              };
           if ((prevCoord.y != null) && (nextCoord.y != null)) {
             _results.push(grad(prevCoord, nextCoord));
           } else if (prevCoord.y != null) {
@@ -1940,17 +1940,20 @@ Licensed under the BSD-2-Clause License.
     Donut.prototype.setData = function(data) {
       var row;
       this.data = data;
-      this.values = (function() {
-        var _i, _len, _ref, _results;
-        _ref = this.data;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          row = _ref[_i];
-          _results.push(parseFloat(row.value));
-        }
-        return _results;
+      this.values = (function () {
+          var _i, _len, _ref, _results;
+          _ref = this.data;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              row = _ref[_i];
+              _results.push(parseFloat(row.value));
+          }
+          return _results;
       }).call(this);
-      return this.redraw();
+      if (this.el && this.el.width() > 0 && this.el.height() > 0) {
+          return this.redraw();
+      }
+      else return null;
     };
 
     Donut.prototype.click = function(idx) {
@@ -2007,8 +2010,11 @@ Licensed under the BSD-2-Clause License.
 
     Donut.prototype.resizeHandler = function() {
       this.timeoutId = null;
-      this.raphael.setSize(this.el.width(), this.el.height());
-      return this.redraw();
+      if (this.el && this.el.width() > 0 && this.el.height() > 0) {
+        this.raphael.setSize(this.el.width(), this.el.height());
+        return this.redraw();
+      }
+      else return null;
     };
 
     return Donut;
